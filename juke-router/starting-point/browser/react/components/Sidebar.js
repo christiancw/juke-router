@@ -14,6 +14,11 @@ const Sidebar = (props) => {
             ALBUMS
           </Link>
         </h4>
+          <section>
+        <h4 className="menu-item">
+          <Link to={'/artists'}>ARTISTS</Link>
+        </h4>
+        </section>
       </section>
     </sidebar>
   );
