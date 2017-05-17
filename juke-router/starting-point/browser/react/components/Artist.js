@@ -30,27 +30,37 @@ export default class Artist extends React.Component {
 		.then( threePromises => {
 				this.setState({
 					artistSongs: threePromises[2].map(convertSong),
-					artistAlbums: threePromises[1],
+					artistAlbums: convertAlbums(threePromises[1]),
 					selectedArtist: threePromises[0]
 				})
 		}).catch(console.error)
 	}
 
 	render() {
-		return (<div>
-				  <h3>{this.state.selectedArtist.name}</h3>
+		const selectedArtist = this.props.selectedArtist;
+		const children = this.props.children;
+		const propsToPassToChildren = {
+			album: this.props.selectedAlbum,
+			currentSong: this.props.currentSong,
+			isPlaying: this.props.isPlaying,
+			toggleOne: this.props.toggleOne,
+			albums: this.state.artistAlbums,
+			selectAlbum: this.props.selectAlbum,
+			artists: this.props.artists,
+			selectedArtist: this.props.selectedArtist,
+			songs: this.state.artistSongs
+		}
 
-				  <h4>
-				  <Albums albums={convertAlbums(this.state.artistAlbums)} />
-				  </h4>
-
-				  <h4>
-				  <Songs songs={this.state.artistSongs}
-				    currentSong={this.props.currentSong}
-        			isPlaying={this.props.isPlaying}
-        			toggleOne={this.props.toggleOne} />
-				  </h4>
-				</div>)
+		return (
+		<div>
+		  <h3>{ selectedArtist.name }</h3>
+		  <ul className="nav nav-tabs">
+		    <li><Link to={`/artists/${this.state.selectedArtist.id}/albums`}>ALBUMS</Link></li>
+		    <li><Link to={`/artists/${this.state.selectedArtist.id}/songs`}>SONGS</Link></li>
+		  </ul>
+		  { children && React.cloneElement(children, propsToPassToChildren) }
+		</div>
+		)
 	}
 
 }
