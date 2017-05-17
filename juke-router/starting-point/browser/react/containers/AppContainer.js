@@ -32,7 +32,7 @@ export default class AppContainer extends Component {
 
     axios.get('/api/artists/')
       .then(res => res.data)
-      .then(artists => this.setState(artists: artists));
+      .then(artists => this.setState({artists}));
 
     AUDIO.addEventListener('ended', () =>
       this.next());

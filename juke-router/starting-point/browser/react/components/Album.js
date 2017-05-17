@@ -7,7 +7,7 @@ export default class Album extends React.Component {
     const albumId = this.props.routeParams.albumId;
     const selectAlbum = this.props.selectAlbum;
 
-  selectAlbum(albumId);
+    selectAlbum(albumId);
 }
   render() {
   const album = this.props.album
